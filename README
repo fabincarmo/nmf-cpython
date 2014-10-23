@@ -1,1 +1,10 @@
-Non-Negative Matrix Factorization (NMF) Implementation in C/Python usingo CBLAS/ATLAS Library
+Non-Negative Matrix Factorization (NMF) Implementation in C/Python using CBLAS/ATLAS Library.
+
+Cost Function: Square of Eucledian distance.
+|| A - B ||^2 = SUM_ij (A_ij - B_ij)^2 
+
+Source:
+Algorithms for Non-negative Matrix Factorization
+Daniel D. Lee
+H. Sebastian Seung
+Link: http://hebb.mit.edu/people/seung/papers/nmfconverge.pdf
