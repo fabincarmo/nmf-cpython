@@ -2,7 +2,7 @@
 
 import numpy as np
 import nmf
-np.set_printoptions(precision=5)
+np.set_printoptions(precision=5, suppress=True)
 
 itmax = 1500
 
