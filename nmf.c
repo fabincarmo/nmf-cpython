@@ -6,6 +6,7 @@
 #define MULTM(A,B,C,n,r,m) cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, n, m, r, 1.0, A, r, B, m, 0.0, C, m);
 #define MULTMtnt(A,B,C,n,r,m) cblas_dgemm(CblasRowMajor, CblasTrans, CblasNoTrans, n, m, r, 1.0, A, n, B, m, 0.0, C, m);
 #define MULTMntt(A,B,C,n,r,m) cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasTrans, n, m, r, 1.0, A, r, B, r, 0.0, C, m);
+#define PRINTM(M,n,m) for(i=0;i<n;i++){for(j=0;j<m;j++){printf("%.5f ",M[j+i*m]);}printf("\n");}
 
 static PyObject* double_nmf(PyObject *self, PyObject *args);
 
@@ -60,13 +61,14 @@ static PyObject* v2list(double *v, const int n, const int m)
 static double * NormaColuna(double * M, const int n, const int m){
 	int i, j;
 	double norma;
+	double *Mn = malloc(sizeof(double) * n*m);
 	for(i=0;i<m;i++){
 		norma = cblas_dnrm2(n,&M[i],m);
 		for(j=0;j<n;j++){
-			M[i+j*m] = M[i+j*m] / norma;
+			Mn[i+j*m] = M[i+j*m] / norma;
 		}
 	}
-	return M;
+	return Mn;
 }
 
 static PyObject* double_nmf(PyObject *self, PyObject *args)
@@ -91,7 +93,7 @@ static PyObject* double_nmf(PyObject *self, PyObject *args)
 
 	for(it=0; it<itmax; it++){
 		Wn = NormaColuna(W,n,r);
-		MULTM(W, H, R, n, r, m);
+		MULTM(Wn, H, R, n, r, m);
 		aux1 = malloc(sizeof(double) * r*m);
 		aux2 = malloc(sizeof(double) * r*m);
 		MULTMtnt(Wn, V, aux1, r,n,m);
@@ -103,16 +105,18 @@ static PyObject* double_nmf(PyObject *self, PyObject *args)
 
 		aux1 = malloc(sizeof(double) * n*r);
 		aux2 = malloc(sizeof(double) * n*r);
-		MULTM(W, H, R, n,r,m);
+		MULTM(Wn, H, R, n,r,m);
 		MULTMntt(V, H, aux1, n,m,r);
 		MULTMntt(R, H, aux2, n,m,r);
 		DIV(aux1, aux2, aux1, n,r);
+
 		MULT(W, aux1, W, n,r);
 		free(aux1);
 		free(aux2);
 
 	}
 
+	W = NormaColuna(W,n,r);
 	t1 = v2list(V,n,m);
 	t2 = v2list(W,n,r);
 	t3 = v2list(H,r,m);
