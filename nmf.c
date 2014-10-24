@@ -117,7 +117,6 @@ static PyObject* double_nmf(PyObject *self, PyObject *args)
 	}
 
 	W = NormaColuna(W,n,r);
-	t1 = v2list(V,n,m);
 	t2 = v2list(W,n,r);
 	t3 = v2list(H,r,m);
 
