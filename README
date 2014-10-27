@@ -1,6 +1,6 @@
 Non-Negative Matrix Factorization (NMF) Implementation in C/Python using CBLAS/ATLAS Library.
 
-Cost Function: Square of Eucledian distance.
+Cost Function: Square of Euclidean distance.
 || A - B ||^2 = SUM_ij (A_ij - B_ij)^2 
 
 Source:
