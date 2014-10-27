@@ -21,7 +21,6 @@ print np.array(H2)
 
 W2,H2 = nmf.nmf_euc_sparse(V,W,H,0.2,itmax)
 
-
 print "V = "
 print V
 print "W . H ~"
