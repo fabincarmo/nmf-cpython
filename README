@@ -3,9 +3,10 @@ Non-Negative Matrix Factorization (NMF) Implementation in C/Python using CBLAS/A
 Cost Function: Square of Euclidean distance.
 || A - B ||^2 = SUM_ij (A_ij - B_ij)^2 
 
-Source:
-Algorithms for Non-negative Matrix Factorization
-Daniel D. Lee
-H. Sebastian Seung
-Link: http://hebb.mit.edu/people/seung/papers/nmfconverge.pdf
+
+Sources:
+
+ - Eggert, J.; Korner, E., "Sparse coding and NMF," Neural Networks, 2004. Proceedings. 2004 IEEE International Joint Conference on , vol.4, no., pp.2529,2533 vol.4, 25-29 July 2004
+
+ - D. D. Lee and H. S. Seung.  Algorithms for  non-negative matrix factorization. In Todd K. ken. Thomas G. Diettench, and Volker Tresp, editors. Advances in Neural Informtion Processing System 13, pages 556562. MIT press, 2001. 
 
