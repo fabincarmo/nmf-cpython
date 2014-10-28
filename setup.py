@@ -1,6 +1,6 @@
 from distutils.core import setup, Extension
 
-module1 = Extension('nmf', sources=['nmf.c'],
+module1 = Extension('nmf', sources=['pynmf.c'],
                     include_dirs=['/usr/include'],
                     libraries=['cblas','atlas']
                     )
