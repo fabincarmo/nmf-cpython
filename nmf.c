@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <cblas.h>
 
 #define SUMESC(A,b,C,n,m) for(i=0; i<n;i++){for(j=0; j<m;j++){ C[j+i*m] = A[j+i*m] + b;}}

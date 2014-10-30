@@ -63,6 +63,32 @@ static PyObject* double_nmf_euc_sparse(PyObject *self, PyObject *args)
     return Py_BuildValue("OO", t2, t3);
 }
 
+#if PY_VERSION_HEX > 0x03000000
+
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    "nmf",
+    NULL,
+    -1,
+    nmf_eucMethods,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+PyMODINIT_FUNC PyInit_nmf(void)
+{
+    PyObject *m;
+    m = PyModule_Create(&moduledef);
+    if (!m) {
+        return NULL;
+    }
+    return m;
+}
+
+#else
+
 PyMODINIT_FUNC initnmf(void)
 {
     PyObject *m;
@@ -72,3 +98,5 @@ PyMODINIT_FUNC initnmf(void)
         return;
     }
 }
+
+#endif
