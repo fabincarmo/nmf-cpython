@@ -7,8 +7,8 @@ Cost Function: Kullback-Leibler Divergence.
 
 Requires:
 
-python-dev or python3-dev
-libatlas3-base 
+| python-dev or python3-dev
+| libatlas3-base 
 
 Building
 --------
