@@ -7,11 +7,11 @@ python-dev or python3-dev
 libatlas3-base 
 
 To build:
-```bash
+```
 $ make py2 
 ```
 or
-```bash
+```
 $ make py3
 ```
 
