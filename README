@@ -1,10 +1,8 @@
 Non-Negative Matrix Factorization (NMF) Implementation in C/Python using CBLAS/ATLAS Library.
 
-Cost Function: Square of Euclidean distance.
-|| A - B ||^2 = SUM_ij (A_ij - B_ij)^2 
+Cost Function: Kullback-Leibler DIvergence.
 
-
-Requires (on Debian Wheezy):
+Requires:
 python-dev or python3-dev
 libatlas3-base 
 
@@ -12,11 +10,3 @@ To build:
 $ make py2 
 or
 $ make py3
-
-
-Bibliography:
-
- - Eggert, J.; Korner, E., "Sparse coding and NMF," Neural Networks, 2004. Proceedings. 2004 IEEE International Joint Conference on , vol.4, no., pp.2529,2533 vol.4, 25-29 July 2004
-
- - D. D. Lee and H. S. Seung.  Algorithms for  non-negative matrix factorization. In Todd K. ken. Thomas G. Diettench, and Volker Tresp, editors. Advances in Neural Informtion Processing System 13, pages 556562. MIT press, 2001. 
-

@@ -1,31 +1,25 @@
 #!/usr/bin/python
 
-import sys
 import numpy as np
 import nmf
-np.set_printoptions(precision=5, suppress=True)
+np.set_printoptions(precision=3, suppress=True)
 
-itmax = 500
+itmax = 100
 
-V = np.array([[1.,1.,1.,1.,1.],[0.,1.,0.,1.,0.],[0.,1.,0.,1.,0.]])
-W = np.random.rand(3,2)
-H = np.random.rand(2,5)
+V = np.array  ([[1., 1., 1., 1., 1.],
+                [0., 1., 0., 1., 0.],
+                [0., 1., 0., 1., 0.]])
+W = np.random.rand(3, 2)
+H = np.random.rand(2, 5)
 
-W2,H2 = nmf.nmf_euc(V,W,H,itmax)
-
-print("V = ")
-print(V)
-print("W . H ~")
-print(np.dot(W2,H2))
-print(np.array(W2))
-print(np.array(H2))
-
-W2,H2 = nmf.nmf_euc_sparse(V,W,H,0.2,itmax)
+W, H = nmf.nmf_kl(V, W, H, itmax)
+W = np.array(W); H = np.array(H)
 
 print("V = ")
 print(V)
 print("W . H ~")
-print(np.dot(W2,H2))
-print(np.array(W2))
-print(np.array(H2))
-
+print(np.dot(W, H))
+print("Part 1 =")
+print(np.multiply(W[:,0,np.newaxis],H[np.newaxis,0,:]))
+print("Part 2 =")
+print(np.multiply(W[:,1,np.newaxis],H[np.newaxis,1,:]))

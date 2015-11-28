@@ -1,17 +1,17 @@
 #include "array_list.c"
 #include "nmf.c"
 
-static PyObject* double_nmf_euc(PyObject *self, PyObject *args);
-static PyObject* double_nmf_euc_sparse(PyObject *self, PyObject *args);
+static PyObject* double_nmf_kl(PyObject *self, PyObject *args);
+static PyObject* double_nmf_kl_h(PyObject *self, PyObject *args);
 
-static PyMethodDef nmf_eucMethods[] = {
-    {"nmf_euc", double_nmf_euc, METH_VARARGS, ""},
-	{"nmf_euc_sparse", double_nmf_euc_sparse, METH_VARARGS, ""},
+static PyMethodDef nmf_Methods[] = {
+    {"nmf_kl", double_nmf_kl, METH_VARARGS, ""},
+	{"nmf_kl_h", double_nmf_kl_h, METH_VARARGS, ""},
     {NULL, NULL, 0, NULL}
 };
 
 
-static PyObject* double_nmf_euc(PyObject *self, PyObject *args)
+static PyObject* double_nmf_kl(PyObject *self, PyObject *args)
 {
 	int n, m, r;
 	const int itmax;
@@ -29,7 +29,7 @@ static PyObject* double_nmf_euc(PyObject *self, PyObject *args)
 	m = PySequence_Size(PySequence_GetItem(t1,0));
 	r = PySequence_Size(t3);
 
-	nmf_euc(V, W, H, n, r, m, itmax);
+	nmf_kl(V, W, H, n, r, m, itmax);
 
 	t2 = v2list(W,n,r);
 	t3 = v2list(H,r,m);
@@ -37,15 +37,14 @@ static PyObject* double_nmf_euc(PyObject *self, PyObject *args)
     return Py_BuildValue("OO", t2, t3);
 }
 
-static PyObject* double_nmf_euc_sparse(PyObject *self, PyObject *args)
+static PyObject* double_nmf_kl_h(PyObject *self, PyObject *args)
 {
 	int n, r, m;
 	const int itmax;
 	double *V, *W, *H;
-	double lambda;
 	PyObject *t1, *t2, *t3;
 
-    PyArg_ParseTuple(args, "OOOdi", &t1, &t2, &t3, &lambda, &itmax);
+    PyArg_ParseTuple(args, "OOOi", &t1, &t2, &t3, &itmax);
 
 	n = PySequence_Size(t1);
 	m = PySequence_Size(PySequence_GetItem(t1,0));
@@ -55,7 +54,7 @@ static PyObject* double_nmf_euc_sparse(PyObject *self, PyObject *args)
 	W = list2v(t2);
 	H = list2v(t3);
 
-	nmf_euc_sparse(V, W, H, n, r, m, itmax, lambda);
+	nmf_kl_h(V, W, H, n, r, m, itmax);
 
 	t2 = v2list(W,n,r);
 	t3 = v2list(H,r,m);
@@ -70,7 +69,7 @@ static struct PyModuleDef moduledef = {
     "nmf",
     NULL,
     -1,
-    nmf_eucMethods,
+    nmf_Methods,
     NULL,
     NULL,
     NULL,
@@ -93,7 +92,7 @@ PyMODINIT_FUNC initnmf(void)
 {
     PyObject *m;
 
-    m = Py_InitModule("nmf", nmf_eucMethods);
+    m = Py_InitModule("nmf", nmf_Methods);
     if (m == NULL) {
         return;
     }
